@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Servicio</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet" th:href="@{/resources/datepicker/bootstrap-datepicker.css}">
+<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
+<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}"> 
+<link rel="stylesheet" th:href="@{/resources/css/mantenimiento.css}"> 
+<style media="screen">
+     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+     *{
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: "Poppins", sans-serif;
+}
+
+body{
+ min-height: 100vh;
+ background: #b3deff9c;
+ color: #000;
+ background-size: cover;
+ background-position: center;
+}
+
+.side-bar{
+ background: #00FF0000 ;
+ backdrop-filter: blur(15px);
+ width: 250px;
+ height: 100vh;
+ position: fixed;
+ top: 0;
+ left: 0;
+ overflow-y: auto;
+ transition: 0.6s ease;
+ transition-property: left;
+ bottom: 0;
+}
+
+.side-bar.active{
+ left: 0;
+}
+h1{
+  text-align: center;
+  font-weight: 400;
+  font-size: 20px;
+  padding-bottom: 10px;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 2px;
+}
+
+.side-bar .menu .item a{
+ color: #000;
+ font-size: 16px;
+ text-decoration: none;
+ display: block;
+ padding: 5px 30px;
+ line-height: 60px;
+}
+
+.side-bar .menu .item a:hover{
+ background: #8beafd6d;
+ transition: 0.3s ease;
+}
+
+.side-bar .menu .item i{
+ margin-right: 15px;
+}
+
+.side-bar .menu .item a .dropdown{
+ position: absolute;
+ right: 0;
+ margin: 20px;
+}
+
+.side-bar .menu .item .sub-menu{
+ background: #00FF0000;
+ display: none;
+}
+
+.side-bar .menu .item .sub-menu a{
+ line-height : 35px;
+ padding-left: 50px;
+}
+img{
+  width: 100px;
+  margin: 15px;
+  border-radius: 50%;
+  margin-left: 70px;
+  border: 3px solid #000000;
+}
+header{
+  background: #8beafd6d;
+}
+
+.container {
+    position: absolute;
+    top: 0;
+    left: 250px; 
+    right: 0;
+    bottom: 0;
+    padding: 0 20px; 
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center; 
+}
+
+table {
+    width: 100%; 
+    max-width: 800px; 
+    margin: 0 auto; 
+}
+
+ </style>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+ </head>
+<body>
+	 <!-- ============= Home Section =============== -->
+
+   <div class="side-bar active">
+        <header>
+            <img src="/resources/img/logo.jpg" alt="">
+            <h1>===CarWash===</h1>
+        </header>
+        <div class="menu">
+            <div class="item"><a th:href="@{/client/form}"><i class="fas fa-desktop"></i>Client</a></div>
+            <div class="item">
+                <a class="sub-btn"><i class="fas fa-table"></i>Mantenimiento<i class="fas fa-angle-right dropdown"></i></a>
+                <div class="sub-menu">
+                    <a th:href="@{/empleado/lista}" class="sub-item">Empleado</a>
+                    <a th:href="@{/cliente/lista}" class="sub-item">Cliente</a>
+                    <a th:href="@{/vehiculo/lista}" class="sub-item">Vehiculo</a>
+                    <a th:href="@{/servicio/lista}" class="sub-item">Servicio</a>
+                    <a th:href="@{/categoria/lista}" class="sub-item">Categoria</a>
+                </div>
+            </div>
+            <div class="item"><a href="#"><i class="fas fa-th"></i>Ventas</a></div>
+            <div class="item">
+                <a class="sub-btn"><i class="fas fa-cogs"></i>Consultas<i class="fas fa-angle-right dropdown"></i></a>
+                <div class="sub-menu">
+                    <a th:href="@{/boleta/form}" class="sub-item">Boleta por fecha</a>
+                    <a th:href="@{/ingresoSede/form}" class="sub-item">Ingreso mensual</a>
+                    <a th:href="@{/servicioEmp/form}" class="sub-item">Servicios por empleado</a>
+                </div>
+            </div>
+            <div class="item"><a th:href="@{/informe/form}"><i class="fas fa-th"></i>Informes</a></div>
+            <div class="item"><a href="#"><i class="fas fa-info-circle"></i>About</a></div>
+        </div>
+    </div>
+    
+    <!-- ============= Fin Home Section =============== -->
+    
+	<div class="container">
+		
+			<h3 class="text-center mt-4">LISTA DE SERVICIOS</h3>
+		<div class="btn-nuevo">
+			<button type="button" class="btn btn-primary mt-5" data-toggle="modal" data-target="#modalMedicamento" id="btn-nuevo">
+			 <i class="far fa-file"></i> Nuevo Servicio
+			</button>
+		 </div>
+			   
+			<div class=" mt-2">
+	
+				<table class="table table-striped table-bordered mt-5" id="tableMedicamentos">
+							  <thead>
+							   <tr>
+					                <th>Código</th>
+					                <th>Nombre del servicio</th>
+					                <th>Precio del servicio</th>
+					            </tr>
+							  </thead>
+							  <tbody>
+								<tr th:each="row:${servicio}">
+							      <td th:text="${row.codigo}"></td>
+							      <td th:text="${row.nombre}"></td>
+							      <td th:text="${row.precio}"></td>									
+							      <td><a class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalMedicamento"><i class="far fa-edit"></i></a></td>
+							      <td><a class="btn btn-danger btn-eliminar"><i class="far fa-trash-alt"></i></a></td>
+							    </tr>  
+							  </tbody>
+				</table>
+			</div>
+		
+		
+			<!-- begin #modal-dialog : MODAL MEDICAMENTO-->
+<div class="modal fade" id="modalMedicamento" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-blue-darker">
+                <h4 class="modal-title text-white">Servicio</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="idRegistra" action="grabar">
+                    <input type="text" value="0" name="codigo" id="idCodigo" style="display: none;">
+                    <div class="form-group">
+                        <label for="idNombre"><b>Nombre</b></label>
+                        <input type="text" class="form-control" id="idNombre" placeholder="Ingresar nombre" name="nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="idPrecio"><b>Precio</b></label>
+                        <input type="text" class="form-control" id="idPrecio" placeholder="Ingresar precio" name="precio">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="Guardar" class="btn btn-primary"><i class="fas fa-save"></i> Registrar</button>
+                <button type="button" id="btn-cerrar" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-undo-alt"></i> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+	</div>
+
+	
+		<!-- FIN Modal MEDICAMENTO-->	
+	
+
+		
+	<!-- index js-->
+<script type="text/javascript">
+    $(document).ready(function(){
+        //jquery for toggle sub menus
+        $('.sub-btn').click(function(){
+            $(this).next('.sub-menu').slideToggle();
+            $(this).find('.dropdown').toggleClass('rotate');
+        });
+
+    });
+</script>
+	<!-- fin index js-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+	<script th:src="@{/resources/datepicker/bootstrap-datepicker.js}"></script>     
+	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://kit.fontawesome.com/08aaa156fb.js" crossorigin="anonymous"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script src="https://kit.fontawesome.com/08aaa156fb.js" crossorigin="anonymous"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.js}"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.min.js}"></script>
+	
+	<script th:inline="javascript" th:if="${MENSAJE!= null}">
+		//leer atributo MENSAJE
+			let msj=/*[[${MENSAJE}]]*/
+		toastr.success(msj, toastr.options = {
+			"timeOut": "2000",
+			"positionClass " : " toast-top-right ",
+		});
+	</script>
+	<script>
+		//asignar EVENTO CLICK a todos los BOTONOS con clase BTN-EDITAR
+			$(document). on("click",".btn-editar", function(){
+				//variable 
+				var cod;
+				//almacenar el codigo del medicamento segùn el boton 
+				//editar que se selecciona
+				//this, el boton que pulsaste
+				//parents, fila(tr)
+				//find, columna
+				cod = $(this).parents("tr").find("td")[0].innerHTML;
+				//funciòn get de JQUERY
+				//obtenemos la funciòon que creamos, es decir su nombre en la anotaciòn
+				$.get("buscar?codigo=" + cod, function(respuesta){
+					//asignar valores a las cajas usando el atributo ID
+					$("#idCodigo").val(respuesta.codigo);
+					$("#idNombre").val(respuesta.nombre);
+					$("#idStock").val(respuesta.stock);
+					
+				}) 
+			})
+			//asignar evento click al boton con ID = BTN-CERRAR(ELIMINAR)
+			$(document).on("click","#btn-cerrar", function(){
+				//resetear el formulario
+				$("#idRegistra").trigger("reset");
+				//resetear validaciòn
+				$("#idRegistra").data("bootstrapValidator").resetForm(true);
+			})
+		$('#tableMedicamentos').DataTable();
+		$(function() {
+			$('#usr1').datepicker({
+				'format': 'yyyy-mm-dd',
+				'autoclose': true
+			});
+	
+		});
+		$('#usr1').on('changeDate show', function(e) {
+		    $('#idRegistra').bootstrapValidator('revalidateField', $('#usr1'));
+		});
+
+	</script>
+	
+	<script type="text/javascript">    
+	    $(document).ready(function(){     
+	
+	        $('#idRegistra').bootstrapValidator({     
+	        	feedbackIcons: {
+	                valid: 'glyphicon glyphicon-ok',
+	                invalid: 'glyphicon glyphicon-remove',
+	                validating: 'glyphicon glyphicon-refresh'
+	            },
+	        	 fields:{
+	        		 
+	        		 Nombres: {
+	     	    		selector:'#idNombre',   
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese nombre'    
+	                        }      
+	                    }    
+	                },   
+	                Descripcion: {
+	     	    		selector:'#idDescripcion',       
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese descripción'    
+	                        }      
+	                    }    
+	                },    
+	                Stock: {
+	     	    		selector:'#idStock',      
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese stock'    
+	                        },
+	                        regexp: {    
+	                            regexp: /^[0-9]{1,2}$/,    
+	                            message: 'Campo stock hasta dos cifras'    
+	                        },   
+	                    }    
+	                },
+	                precio: {
+	     	    		selector:'#idPrecio',      
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese precio'    
+	                        },
+	                        regexp: {    
+	                            regexp: /^(\d+|[0-9]+\.\d{1,2})$/,    
+	                            message: 'Campo precio real hasta dos decimales'    
+	                        },   
+	                    }    
+	                },       				
+	                Fecha: {
+	     	    		selector:'#usr1',   
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Seleccione fecha '    
+	                        },
+	                        date: {
+	                            format: 'YYYY-MM-DD',
+	                            message: 'The format is dd/mm/yyyy'
+	                        },
+	                    }    
+	                },
+	                Tipo: {
+	     	    		selector:'#idTipo',   
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Seleccione tipo medicamento'    
+	                        },					
+	                    }    
+	                } 
+	        	 }
+	        })					
+	    });    
+	</script>   
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</body>
+</html>
