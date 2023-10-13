@@ -36,7 +36,7 @@ public class CategoriaController {
 			if(cod==0) {
 				
 				cate.Registrar(objetoCate);
-				redirect.addFlashAttribute("MENSAJE", "Categoria");
+				redirect.addFlashAttribute("MENSAJE", "Categoria registrada");
 			}else {
 				objetoCate.setCodigo(cod);
 				cate.Actualizar(objetoCate);
