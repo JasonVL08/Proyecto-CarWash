@@ -345,43 +345,50 @@ table {
 	            },
 	        	 fields:{
 	        		 
-	        		 Nombres: {
-	     	    		selector:'#idNombre',   
+	        		 placa: {
+	     	    		selector:'#idPlaca',   
 	                    validators: {    
 	                        notEmpty: {    
-	                            message: 'Ingrese nombre'    
-	                        }      
+	                            message: 'Ingrese placa'    
+	                        },
+	                        regexp: {    
+	                            regexp: /^[0-9A-Z]{3,3}-[0-9A-Z]{3,3}$/,    
+	                            message: 'Ingrese una placa valida. Ejemplo: PLA-123'    
+	                        }       
 	                    }    
 	                },   
-	                Descripcion: {
-	     	    		selector:'#idDescripcion',       
+	                marca: {
+	     	    		selector:'#idMarca',       
 	                    validators: {    
 	                        notEmpty: {    
-	                            message: 'Ingrese descripción'    
-	                        }      
+	                            message: 'Ingrese marca'    
+	                        }, regexp: {    
+	                            regexp: /^[A-Z][a-z]{1,18}$/,    
+	                            message: 'Ingrese una marca valida. Ejemplo: Toyota'    
+	                        }             
 	                    }    
 	                },    
-	                Stock: {
-	     	    		selector:'#idStock',      
+	                modelo: {
+	     	    		selector:'#idModelo',      
 	                    validators: {    
 	                        notEmpty: {    
 	                            message: 'Ingrese stock'    
 	                        },
 	                        regexp: {    
-	                            regexp: /^[0-9]{1,2}$/,    
-	                            message: 'Campo stock hasta dos cifras'    
+	                            regexp: /^[A-Za-z0-9]{1,20}$/,    
+	                            message: 'Campo modelo no puede ser mayor a 20 caracteres'    
 	                        },   
 	                    }    
 	                },
-	                precio: {
-	     	    		selector:'#idPrecio',      
+	                color: {
+	     	    		selector:'#idColor',      
 	                    validators: {    
 	                        notEmpty: {    
 	                            message: 'Ingrese precio'    
 	                        },
 	                        regexp: {    
-	                            regexp: /^(\d+|[0-9]+\.\d{1,2})$/,    
-	                            message: 'Campo precio real hasta dos decimales'    
+	                            regexp:  /^[A-Z][a-z]{1,10}$/,    
+	                            message: 'Campo color no puede ser mayor a 10 caracteres'    
 	                        },   
 	                    }    
 	                },       				
@@ -409,27 +416,16 @@ table {
 	        })					
 	    });    
 	</script>   
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	</script>
+		<script th:inline="javascript" th:if="${ERROR != null}">
+		// leer atributo ERROR que proviene del controler.
+		let error = /*[[${ERROR}]]*/
+		
+		toastr.error(error, toastr.options = {
+			"timeOut": "2000",
+			"positionClass " : " toast-top-right ",
+		});
+		
+	</script>
 </body>
 </html>

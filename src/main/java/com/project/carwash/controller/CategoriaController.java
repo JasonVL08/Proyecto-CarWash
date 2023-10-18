@@ -52,6 +52,13 @@ public class CategoriaController {
 	public Categoria Buscar(@RequestParam("codigo") Integer cod) {
 		return cate.Buscar(cod);
 	}
+	@RequestMapping("/eliminar")
+	public String eliminar(@RequestParam("codigo") Integer cod,
+			RedirectAttributes redirect) {
+		cate.Eliminar(cod);
+		redirect.addFlashAttribute("MENSAJE","Categoria eliminada");
+		return "redirect:/categoria/lista";
+	}
 	
 }
 

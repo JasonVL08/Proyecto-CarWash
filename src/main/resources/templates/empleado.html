@@ -208,7 +208,7 @@ table {
                 <h4 class="modal-title text-white">Empleado</h4>
             </div>
             <div class="modal-body">
-                <form method="POST" id="idRegistra" action="grabar">
+                <form method="POST" id="idRegistra" action="grabar" name="idRegistra">
                     <!-- cambia el hidden-->
                     <input type="text" value="0" name="codigo" id="idCodigo">
                     <div class="form-group">
@@ -341,7 +341,17 @@ table {
 
 
 	</script>
-
+	</script>
+		<script th:inline="javascript" th:if="${ERROR != null}">
+		// leer atributo ERROR que proviene del controler.
+		let error = /*[[${ERROR}]]*/
+		
+		toastr.error(error, toastr.options = {
+			"timeOut": "2000",
+			"positionClass " : " toast-top-right ",
+		});
+		
+	</script>
 	<script type="text/javascript">
 		$(document).ready(function () {
 
@@ -353,59 +363,67 @@ table {
 				},
 				fields: {
 
-					Nombres: {
+					nombre: {
 						selector: '#idNombre',
 						validators: {
 							notEmpty: {
 								message: 'Ingrese nombre'
-							}
+							},
+	                        regexp: {    
+	                            regexp: /^[a-zA-ZÑñáéíóúÁÉÍÓÚÜü\s]{1,30}$/,    
+	                            message: 'Campo nombre debe ser menor a 30 caracteres '    
+	                        }   
 						}
 					},
-					Descripcion: {
-						selector: '#idDescripcion',
+					apellido: {
+						selector: '#idApellido',
 						validators: {
 							notEmpty: {
-								message: 'Ingrese descripción'
-							}
+								message: 'Ingrese apellido'
+							},
+	                        regexp: {    
+	                            regexp: /^[a-zA-ZÑñáéíóúÁÉÍÓÚÜü\s]{1,30}$/,    
+	                            message: 'Campo apellido debe ser menor a 30 caracteres '    
+	                        } 
 						}
 					},
-					Stock: {
-						selector: '#idStock',
+					cargo: {
+						selector: '#idCargo',
 						validators: {
 							notEmpty: {
-								message: 'Ingrese stock'
+								message: 'Ingrese cargo'
 							},
 							regexp: {
-								regexp: /^[0-9]{1,2}$/,
-								message: 'Campo stock hasta dos cifras'
-							},
+								regexp: /^[a-zA-ZÑñáéíóúÁÉÍÓÚÜü\s]{1,20}$/,    
+	                            message: 'Campo apellido debe ser menor a 20 caracteres '    
+	                       } 
 						}
 					},
-					precio: {
-						selector: '#idPrecio',
+					telefono: {
+						selector: '#idTelefono',
 						validators: {
 							notEmpty: {
-								message: 'Ingrese precio'
+								message: 'Ingrese telefono'
 							},
 							regexp: {
-								regexp: /^(\d+|[0-9]+\.\d{1,2})$/,
-								message: 'Campo precio real hasta dos decimales'
+								regexp: /^[0-9]{7,9}$/,
+								message: 'Ingrese un numero de telefono valido'
 							},
 						}
 					},
-					Fecha: {
-						selector: '#usr1',
+					correo: {
+						selector: '#idCorreo',
 						validators: {
 							notEmpty: {
-								message: 'Seleccione fecha '
+								message: 'Ingrese correo'
 							},
-							date: {
-								format: 'YYYY-MM-DD',
-								message: 'The format is dd/mm/yyyy'
+							regexp: {
+	                            regexp: /(?=.{6,40}$)[0-9a-zA-ZÑñáéíóúÁÉÍÓÚÜü_-]+@[0-9a-zA-ZÑñáéíóúÁÉÍÓÚÜü_-]+\.(com|edu|org)$/,    
+								message: 'Ingrese un numero de correo valido'
 							},
 						}
 					},
-					Tipo: {
+					tipo: {
 						selector: '#idTipo',
 						validators: {
 							notEmpty: {

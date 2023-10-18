@@ -53,5 +53,12 @@ public class ServicioController {
 	public Servicio Buscar(@RequestParam("codigo") Integer cod) {
 		return ser.Buscar(cod);
 	}
+	@RequestMapping("/eliminar")
+	public String eliminar(@RequestParam("codigo") Integer cod,
+			RedirectAttributes redirect) {
+		ser.Eliminar(cod);
+		redirect.addFlashAttribute("MENSAJE" , "Servicio eliminado");
+		return "redirect:/servicio/lista";
+	}
 	
 }
