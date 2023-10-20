@@ -1,5 +1,7 @@
 package com.project.carwash.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.carwash.entity.Cliente;
+import com.project.carwash.entity.Empleado;
 import com.project.carwash.entity.Vehiculo;
 import com.project.carwash.services.ClienteServices;
 import com.project.carwash.services.VehiculoServices;
@@ -43,18 +46,33 @@ public class VehiculoController {
 	) 
 	{
 		try {
-			Cliente cliente = new Cliente(codigoCliente);
-			Vehiculo vehiculo = new Vehiculo(codigo, placa, marca, modelo, color, cliente);
-			String complemento;
-			
-			if (codigo == 0) {
-				vehiculoService.insert(vehiculo);
-				complemento = "Registrado";
-			} else {
-				vehiculoService.update(vehiculo);
-				complemento = "Actualizado";
+			List<Vehiculo> listaVehiculo = vehiculoService.findAll();
+			Boolean placaRepetida = false;
+			for(int i=0; i<listaVehiculo.size();i++) {
+				Vehiculo emp = listaVehiculo.get(i);
+				String pla = emp.getPlaca();
+				if(pla.equals(placa)) {
+					placaRepetida=true;
+				}
 			}
-			redirect.addFlashAttribute("MENSAJE", complemento);
+			if(placaRepetida==true) {
+				redirect.addFlashAttribute("ERROR", "Error en el registro. Placa ya existe");
+			}
+			else{
+				Cliente cliente = new Cliente(codigoCliente);
+				Vehiculo vehiculo = new Vehiculo(codigo, placa, marca, modelo, color, cliente);
+				String complemento;
+				
+				if (codigo == 0) {
+					vehiculoService.insert(vehiculo);
+					complemento = "Registrado";
+				} else {
+					vehiculoService.update(vehiculo);
+					complemento = "Actualizado";
+				}
+				redirect.addFlashAttribute("MENSAJE", complemento);
+			}
+			
 		} catch(Exception e) {
 			System.out.println(e);
 		}

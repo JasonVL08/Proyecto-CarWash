@@ -21,11 +21,11 @@ public class ServicioServices {
 	public void Actualizar (Servicio serv) {
 		repo.save(serv);
 	}
-	public Servicio Buscar(int cod) {
+	public Servicio Buscar(Integer cod) {
 		return repo.findById(cod).orElse(null);
 	}
-	public void Eliminar(Servicio ser) {
-		repo.delete(ser);
+	public void Eliminar(Integer cod) {
+		repo.deleteById(cod);
 	}
 	
 

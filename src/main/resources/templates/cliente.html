@@ -226,7 +226,7 @@ table {
                         </div>
                         <div class="col-md-12 form-group">
                             <label for="idCorreo"><b>Correo</b></label>
-                            <input type="email" class="form-control" id="idCorreo" placeholder="Ingresar Correo" name="correo">
+                            <input type="text" class="form-control" id="idCorreo" placeholder="Ingresar Correo" name="correo">
                         </div>
                         <div class="col-md-12 form-group">
                             <label for="idDireccion"><b>Direccion</b></label>
@@ -281,6 +281,18 @@ table {
 		});
 		
 	</script>
+		<script th:inline="javascript" th:if="${ERROR != null}">
+		// leer atributo ERROR que proviene del controler.
+		let error = /*[[${ERROR}]]*/
+		
+		toastr.error(error, toastr.options = {
+			"timeOut": "2000",
+			"positionClass " : " toast-top-right ",
+		});
+		
+	</script>
+	
+	
 	
 	<script>
 		$(document).on("click", ".btn-editar", function(){
@@ -320,6 +332,29 @@ table {
 
 
 	</script>
+	<script>
+		/*asignar evento a los botones con la clase btn-eliminar*/
+		$(document).on("click",".btn-eliminar",function(){
+			var cod;
+    		var $row = $(this).closest("tr");
+    		console.log($row); // Verifica la fila seleccionada
+    		var $firstCell = $row.find("td:first");
+   			 console.log($firstCell); // Verifica la primera celda
+    		cod = $firstCell.text();
+			alertify.confirm("SISTEMA","Seguro de eliminar!",
+	  function(){
+			window.location="http://localhost:8091/cliente/eliminar?codigo="+cod
+	  },
+	  function(){ 
+		alertify.error('Cancelado!')
+	  }).
+	  set('labels', {ok:'Si', cancel:'No'});
+		})
+	</script>
+	
+	
+	
+	
 	
 	<script type="text/javascript">    
 	    $(document).ready(function(){     
@@ -337,51 +372,59 @@ table {
 	                    validators: {    
 	                        notEmpty: {    
 	                            message: 'Ingrese nombre'    
+	                        },
+	                        regexp: {    
+	                            regexp: /^[a-zA-ZÑñáéíóúÁÉÍÓÚÜü\s]{3,40}$/,    
+	                            message: 'Campo nombre debe ser mayor a 3 y menor a 40 caracteres '    
 	                        }      
 	                    }    
 	                },   
-	                Descripcion: {
-	     	    		selector:'#idDescripcion',       
+	                Apellidos: {
+	     	    		selector:'#idApellido',       
 	                    validators: {    
 	                        notEmpty: {    
 	                            message: 'Ingrese descripción'    
-	                        }      
-	                    }    
-	                },    
-	                Stock: {
-	     	    		selector:'#idStock',      
-	                    validators: {    
-	                        notEmpty: {    
-	                            message: 'Ingrese stock'    
 	                        },
 	                        regexp: {    
-	                            regexp: /^[0-9]{1,2}$/,    
-	                            message: 'Campo stock hasta dos cifras'    
+	                            regexp: /^[a-zA-ZÑñáéíóúÁÉÍÓÚÜü\s]{3,40}$/,    
+	                            message: 'Campo apellido debe ser mayor a 3 y menor a 40 caracteres '    
+	                        }         
+	                    }    
+	                },    
+	                Telefono: {
+	     	    		selector:'#idTelefono',      
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese telefono'    
+	                        },
+	                        regexp: {    
+	                            regexp: /^[0-9]{1,9}$/,    
+	                            message: 'Campo telefono hasta 9 cifras'    
 	                        },   
 	                    }    
 	                },
-	                precio: {
-	     	    		selector:'#idPrecio',      
+	                Direccion: {
+	     	    		selector:'#idDireccion',      
 	                    validators: {    
 	                        notEmpty: {    
-	                            message: 'Ingrese precio'    
+	                            message: 'Ingrese direccion'    
 	                        },
 	                        regexp: {    
-	                            regexp: /^(\d+|[0-9]+\.\d{1,2})$/,    
-	                            message: 'Campo precio real hasta dos decimales'    
+	                            regexp: /^[/°#0-9a-zA-ZÑñáéíóúÁÉÍÓÚÜü,.":\s]{4,50}$/,    
+	                            message: 'Campo direccion debe ser menor a 50 caracteres'    
 	                        },   
 	                    }    
 	                },       				
-	                Fecha: {
-	     	    		selector:'#usr1',   
+	                Correo: {
+	     	    		selector:'#idCorreo',   
 	                    validators: {    
 	                        notEmpty: {    
-	                            message: 'Seleccione fecha '    
+	                            message: 'Ingrese correo '    
 	                        },
-	                        date: {
-	                            format: 'YYYY-MM-DD',
-	                            message: 'The format is dd/mm/yyyy'
-	                        },
+	                         regexp: {    
+	                            regexp: /(?=.{6,40}$)[0-9a-zA-ZÑñáéíóúÁÉÍÓÚÜü_-]+@[0-9a-zA-ZÑñáéíóúÁÉÍÓÚÜü_-]+\.(com|edu|org)$/,    
+	                            message: 'Ingrese un correo valido que tenga menos de 40 caracteres'    
+	                        },   
 	                    }    
 	                },
 	                Tipo: {
@@ -396,27 +439,5 @@ table {
 	        })					
 	    });    
 	</script>   
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </body>
 </html>

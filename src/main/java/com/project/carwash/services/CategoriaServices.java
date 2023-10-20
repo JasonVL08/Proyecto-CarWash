@@ -22,11 +22,11 @@ public class CategoriaServices {
 	public void Actualizar(Categoria tipo) {
 		repo.save(tipo);
 	}
-	public Categoria Buscar (int cod) {
+	public Categoria Buscar (Integer cod) {
 		return repo.findById(cod).orElse(null);
 	}
-	public void Eliminar(Categoria tipo) {
-		repo.delete(tipo);
+	public void Eliminar(Integer cod) {
+		repo.deleteById(cod);
 	}
 }
 
