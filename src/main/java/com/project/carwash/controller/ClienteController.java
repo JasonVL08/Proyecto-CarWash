@@ -1,5 +1,7 @@
 package com.project.carwash.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,19 +41,44 @@ public class ClienteController {
 	)
 	{
 		try {
-			Cliente cliente = new Cliente(codigo, apellidos, nombre, telefono, correo, direccion);
-			String complemento;
-			
-			if (codigo == 0) {
-				clienteService.insert(cliente);
-				complemento = "Registrado";	
-			} else {
-				clienteService.update(cliente);
-				complemento = "Actualizado";
+			List<Cliente> listaCliente = clienteService.listarTodos();
+			Boolean telefonoRepetido = false;
+			Boolean correoRepetido = false;
+			for(int i=0; i<listaCliente.size();i++) {
+				Cliente cli = listaCliente.get(i);
+				String tel = cli.getTelefono();
+				String cor = cli.getCorreo();
+				if(tel.equals(telefono)) {
+					telefonoRepetido=true;
+				}
+				if(cor.equals(correo)) {
+					correoRepetido=true;
+				}
+			}
+			if(telefonoRepetido==true || correoRepetido==true) {
+				if(telefonoRepetido==true) {
+					redirect.addFlashAttribute("ERROR", "Error en el registro. Telefono ya existe");
+				}else if (correoRepetido==true) {
+					redirect.addFlashAttribute("ERROR", "Error en el registro. Correo ya existe");
+				}
 			}
 			
-			redirect.addFlashAttribute("MENSAJE", "Cliente " + complemento);
-		} catch (Exception e) {
+			else{
+				Cliente cliente = new Cliente(codigo, apellidos, nombre, telefono, correo, direccion);
+				String complemento;
+				
+				if (codigo == 0) {
+					clienteService.insert(cliente);
+					complemento = "Registrado";	
+				} else {
+					clienteService.update(cliente);
+					complemento = "Actualizado";
+				}
+				
+				redirect.addFlashAttribute("MENSAJE", "Cliente " + complemento);
+			}
+		}
+		catch (Exception e) {
 			System.out.println(e);
 		}
 		
@@ -63,5 +90,15 @@ public class ClienteController {
 	public Cliente buscar(@RequestParam("id") int codigo) {
 		return clienteService.findById(codigo);
 	}
+	
+	@RequestMapping("/eliminar")
+	public String eliminar(@RequestParam("codigo") Integer cod,
+			RedirectAttributes redirect) {
+		clienteService.deleteById(cod);
+		redirect.addFlashAttribute("MENSAJE" , "Cliente eliminado");
+		return "redirect:/cliente/lista";
+	}
+	
+	
 }
 

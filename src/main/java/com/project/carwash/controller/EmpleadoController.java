@@ -1,5 +1,7 @@
 package com.project.carwash.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.carwash.entity.Cliente;
 import com.project.carwash.entity.Empleado;
 import com.project.carwash.entity.Sede;
 import com.project.carwash.services.EmpleadoServices;
@@ -39,30 +42,52 @@ public class EmpleadoController {
 			              @RequestParam("sede") int codSede,
 			              RedirectAttributes redirect) {
 		try {
-			//
-			Empleado emp = new Empleado();			
-			emp.setNombre(nom);
-			emp.setApellido(ape);
-			emp.setCargo(cargo);
-			emp.setTelefono(tele);
-			emp.setCorreo(correo);
-		
-			//
-			Sede sd = new Sede();
-			sd.setCodigo(codSede);
+			List<Empleado> listaEmpleado = servicioEmp.listarEmpleado();
+			Boolean telefonoRepetido = false;
+			Boolean correoRepetido = false;
+			for(int i=0; i<listaEmpleado.size();i++) {
+				Empleado emp = listaEmpleado.get(i);
+				int tel = emp.getTelefono();
+				String cor = emp.getCorreo();
+				if(tel==tele) {
+					telefonoRepetido=true;
+				}
+				if(cor.equals(correo)) {
+					correoRepetido=true;
+				}
+			}
+			if(telefonoRepetido==true || correoRepetido==true) {
+				if(telefonoRepetido==true) {
+					redirect.addFlashAttribute("ERROR", "Error en el registro. Telefono ya existe");
+				}else if (correoRepetido==true) {
+					redirect.addFlashAttribute("ERROR", "Error en el registro. Correo ya existe");
+				}
+			}
+			else{
+				Empleado emp = new Empleado();			
+				emp.setNombre(nom);
+				emp.setApellido(ape);
+				emp.setCargo(cargo);
+				emp.setTelefono(tele);
+				emp.setCorreo(correo);
 			
-			//
-			emp.setSede(sd);
-			
-			if(cod == 0) {
-				servicioEmp.registrar(emp);
-				//flash
-				redirect.addFlashAttribute("MENSAJE", "Empleado registrado");
-			} 
-			else {
-				emp.setCodigo(cod);
-				servicioEmp.actualizar(emp);
-				redirect.addFlashAttribute("MENSAJE", "Empleado actualizado");
+				//
+				Sede sd = new Sede();
+				sd.setCodigo(codSede);
+				
+				//
+				emp.setSede(sd);
+				
+				if(cod == 0) {
+					servicioEmp.registrar(emp);
+					//flash
+					redirect.addFlashAttribute("MENSAJE", "Empleado registrado");
+				} 
+				else {
+					emp.setCodigo(cod);
+					servicioEmp.actualizar(emp);
+					redirect.addFlashAttribute("MENSAJE", "Empleado actualizado");
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
