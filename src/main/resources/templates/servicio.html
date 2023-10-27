@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Servicio</title>
+<title>Proyecto CarWash</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -161,12 +161,11 @@ table {
 	<div class="container">
 		
 			<h3 class="text-center mt-4">LISTA DE SERVICIOS</h3>
-		<div class="btn-nuevo">
-			<button type="button" class="btn btn-primary mt-5" data-toggle="modal" data-target="#modalMedicamento" id="btn-nuevo">
-			 <i class="far fa-file"></i> Nuevo Servicio
-			</button>
-		 </div>
-			   
+			<div class="btn-nuevo">
+				<button type="button" class="btn btn-primary mt-5" data-toggle="modal" data-target="#modalMedicamento" id="btn-nuevo">
+				 <i class="far fa-file"></i> Nuevo Servicio
+				</button>
+			</div>
 			<div class=" mt-2">
 	
 				<table class="table table-striped table-bordered mt-5" id="tableMedicamentos">
@@ -191,55 +190,39 @@ table {
 		
 		
 			<!-- begin #modal-dialog : MODAL MEDICAMENTO-->
-<div class="modal fade" id="modalMedicamento" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-        <div class="modal-content">
-            <div class="modal-header bg-blue-darker">
-                <h4 class="modal-title text-white">Servicio</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" id="idRegistra" action="grabar">
-                    <input type="text" value="0" name="codigo" id="idCodigo" style="display: none;">
-                    <div class="form-group">
-                        <label for="idNombre"><b>Nombre</b></label>
-                        <input type="text" class="form-control" id="idNombre" placeholder="Ingresar nombre" name="nombre">
-                    </div>
-                    <div class="form-group">
-                        <label for="idPrecio"><b>Precio</b></label>
-                        <input type="text" class="form-control" id="idPrecio" placeholder="Ingresar precio" name="precio">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" id="Guardar" class="btn btn-primary"><i class="fas fa-save"></i> Registrar</button>
-                <button type="button" id="btn-cerrar" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-undo-alt"></i> Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-	</div>
-
-	
+				<div class="modal fade" id="modalMedicamento" tabindex="-1" role="dialog" aria-labelledby="modalMedicamentoLabel" aria-hidden="true">
+  						<div class="modal-dialog modal-dialog-centered modal-md" role="document">
+							<div class="modal-content">
+								<div class="modal-header bg-blue-darker">
+        							<h4 class="modal-title text-white" id="modalMedicamentoLabel">Servicio</h4>
+									 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+								          <span aria-hidden="true">&times;</span>
+								     </button>
+								</div>
+								<div class="modal-body">
+									<form method="POST" id="idRegistra" action="grabar">	
+										<input type="text" value="0" name="codigo" id="idCodigo">
+												<div class="form-group">
+														<label for="idNombre"><b>Nombre</b></label><br>		
+														<input type="text" class="form-control"  id="idNombre" placeholder="Ingresar nombre" name="nombre">																										
+												</div>
+												<div class="form-group">
+													<label for="idPrecio"><b>Precio</b></label><br>
+													<input type="text" class="form-control" id="idPrecio" placeholder="Ingresar precio" name="precio">														
+												</div>
+												<div class="col-md-12 text-center mt-4"> 										
+													<button type="submit" id="Guardar" class="btn btn-primary"><i class="fas fa-save"></i> Registrar</button>
+													<button type="button" id="btn-cerrar" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-undo-alt"></i> Cancelar</button>
+												</div> 																								
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
 		<!-- FIN Modal MEDICAMENTO-->	
 	
-
-		
-	<!-- index js-->
-<script type="text/javascript">
-    $(document).ready(function(){
-        //jquery for toggle sub menus
-        $('.sub-btn').click(function(){
-            $(this).next('.sub-menu').slideToggle();
-            $(this).find('.dropdown').toggleClass('rotate');
-        });
-
-    });
-</script>
-	<!-- fin index js-->
+	</div>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 	<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
@@ -277,8 +260,7 @@ table {
 					//asignar valores a las cajas usando el atributo ID
 					$("#idCodigo").val(respuesta.codigo);
 					$("#idNombre").val(respuesta.nombre);
-					$("#idStock").val(respuesta.stock);
-					
+					$("#idPrecio").val(respuesta.precio);
 				}) 
 			})
 			//asignar evento click al boton con ID = BTN-CERRAR(ELIMINAR)
@@ -288,19 +270,29 @@ table {
 				//resetear validaciòn
 				$("#idRegistra").data("bootstrapValidator").resetForm(true);
 			})
-		$('#tableMedicamentos').DataTable();
-		$(function() {
-			$('#usr1').datepicker({
-				'format': 'yyyy-mm-dd',
-				'autoclose': true
-			});
-	
-		});
-		$('#usr1').on('changeDate show', function(e) {
-		    $('#idRegistra').bootstrapValidator('revalidateField', $('#usr1'));
-		});
-
 	</script>
+	<script>
+		/*asignar evento a los botones con la clase btn-eliminar*/
+		$(document).on("click",".btn-eliminar",function(){
+			var cod;
+    		var $row = $(this).closest("tr");
+    		console.log($row); // Verifica la fila seleccionada
+    		var $firstCell = $row.find("td:first");
+   			 console.log($firstCell); // Verifica la primera celda
+    		cod = $firstCell.text();
+			alertify.confirm("SISTEMA","Seguro de eliminar!",
+	  function(){
+			window.location="http://localhost:8091/servicio/eliminar?codigo="+cod
+	  },
+	  function(){ 
+		alertify.error('Cancelado!')
+	  }).
+	  set('labels', {ok:'Si', cancel:'No'});
+		})
+	</script>
+	
+	
+	
 	
 	<script type="text/javascript">    
 	    $(document).ready(function(){     
@@ -318,7 +310,11 @@ table {
 	                    validators: {    
 	                        notEmpty: {    
 	                            message: 'Ingrese nombre'    
-	                        }      
+	                        },
+	                        regexp: {    
+	                            regexp: /^[a-zA-ZÑñáéíóúÁÉÍÓÚÜü]{3,20}$/,    
+	                            message: 'Campo nombre debe ser mayor a 3 y menor a 20 caracteres'    
+	                        }         
 	                    }    
 	                },   
 	                Descripcion: {
@@ -377,27 +373,5 @@ table {
 	        })					
 	    });    
 	</script>   
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </body>
 </html>
