@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head>
+  <meta charset="UTF-8" />
+    <title>Intranet</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet" th:href="@{/resources/datepicker/bootstrap-datepicker.css}">
+<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
+<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}"> 
+<link rel="stylesheet" th:href="@{/resources/css/mantenimiento.css}"> 
+
+<style type="text/css">
+	:root{
+	  --main-bg:#0dcaf0;
+	}
+	
+	.main-bg {
+	  background: var(--main-bg) !important;
+	}
+	
+	input:focus, button:focus {
+	  border: 1px solid var(--main-bg) !important;
+	  box-shadow: none !important;
+	}
+	
+	.form-check-input:checked {
+	  background-color: var(--main-bg) !important;
+	  border-color: var(--main-bg) !important;
+	}
+	
+	.card, .btn, input{
+	  border-radius:0 !important;
+	}
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+</head>
+
+<body class="main-bg">
+	
+  <!-- Login Form -->
+  <div class="container">
+    <div class="row justify-content-center" style="margin-top: 300px!important">
+      <div class="col-lg-4 col-md-6 col-sm-6">
+		  <div class="alert alert-danger" th:if="${param.error}" >Clave incorrecta</div>
+		  <div class="alert alert-success" th:if="${param.logout}">Sesión terminada</div>
+          
+          <div class="card shadow">
+            <div class="card-title text-center border-bottom">
+            <h2 class="p-3">INTRANET</h2>
+          </div>
+          <div class="card-body">
+            <form method="post" th:action="@{/session/login}">
+              <div class="mb-4">
+                <label for="username" class="form-label font-weight-bold">Username/Email</label>
+                <input type="text" class="form-control" id="username" name="username" />
+              </div>
+              <div class="mb-4">
+                <label for="password" class="form-label font-weight-bold">Password</label>
+                <input type="password" class="form-control" id="password" name="password"/>
+              </div>
+              <div class="d-grid">
+                <input type="submit" value="Iniciar Sesion" class="btn text-light main-bg">
+              </div>
+            </form>
+   
+			</div>	
+        </div>
+      </div>
+    </div>
+     
+	</div>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+	<script th:src="@{/resources/datepicker/bootstrap-datepicker.js}"></script>     
+	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://kit.fontawesome.com/08aaa156fb.js" crossorigin="anonymous"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script src="https://kit.fontawesome.com/08aaa156fb.js" crossorigin="anonymous"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.js}"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.min.js}"></script>
+	
+	<script th:inline="javascript" th:if="${MENSAJE!= null}">
+		//leer atributo MENSAJE
+			let msj=/*[[${MENSAJE}]]*/
+		toastr.success(msj, toastr.options = {
+			"timeOut": "2000",
+			"positionClass " : " toast-top-right ",
+		});
+	</script>
+	
+</body>
+</html>

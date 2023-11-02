@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.carwash.entity.Empleado;
+import com.project.carwash.entity.Enlace;
 import com.project.carwash.repository.EmpleadoRepository;
 
 @Service
@@ -27,5 +28,5 @@ public class EmpleadoServices {
 	}
 	public List<Empleado> listarEmpleado(){
 		return repoEmpleado.findAll();
-	}
+	}	
 }
