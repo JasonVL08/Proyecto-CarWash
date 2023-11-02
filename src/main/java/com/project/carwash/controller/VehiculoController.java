@@ -33,7 +33,7 @@ public class VehiculoController {
 		model.addAttribute("clientes", clienteService.listarTodos());
 		return "vehiculo";
 	}
-	
+	/*
 	@PostMapping("/grabar")
 	public String grabar(
 		@RequestParam("codigo") Integer codigo,
@@ -79,7 +79,7 @@ public class VehiculoController {
 		
 		return "redirect:/vehiculo/lista";
 	}
-	
+	*/
 	@GetMapping("/buscar")
 	@ResponseBody
 	public Vehiculo buscar(@RequestParam("codigo") Integer codigo) {

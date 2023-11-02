@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.project.carwash.entity.Cliente;
 import com.project.carwash.entity.Empleado;
 import com.project.carwash.entity.Sede;
+import com.project.carwash.entity.Usuario;
 import com.project.carwash.services.EmpleadoServices;
 import com.project.carwash.services.SedeServices;
+import com.project.carwash.services.UsuarioServices;
 
 @Controller
 @RequestMapping ("/empleado")
@@ -24,6 +25,7 @@ public class EmpleadoController {
 	
 	@Autowired
 	private SedeServices servicioSede;
+	private UsuarioServices usuarioServices;
 	
 	@RequestMapping("/lista")
 	public String index (Model model) { //model interface{
@@ -40,6 +42,7 @@ public class EmpleadoController {
 			              @RequestParam("telefono") int tele,
 			              @RequestParam("correo") String correo,
 			              @RequestParam("sede") int codSede,
+			              int codUsu,
 			              RedirectAttributes redirect) {
 		try {
 			List<Empleado> listaEmpleado = servicioEmp.listarEmpleado();
@@ -77,7 +80,9 @@ public class EmpleadoController {
 				
 				//
 				emp.setSede(sd);
-				
+				Usuario u = new Usuario();
+				u.setCodigo(2);
+				emp.setUsuario(u);
 				if(cod == 0) {
 					servicioEmp.registrar(emp);
 					//flash
