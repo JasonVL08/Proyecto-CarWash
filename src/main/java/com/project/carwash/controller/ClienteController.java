@@ -2,6 +2,7 @@ package com.project.carwash.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,15 +11,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.carwash.entity.Cliente;
 import com.project.carwash.services.ClienteServices;
-
+import com.project.carwash.services.UsuarioServices;
+//ATRIBUTOS DE TIPO SESSION
+@SessionAttributes("ENLACES")
 @Controller
 @RequestMapping("/cliente")
 public class ClienteController {
-	
+
 	@Autowired
 	private ClienteServices clienteService;
 	
@@ -27,7 +31,6 @@ public class ClienteController {
 		model.addAttribute("clientes", clienteService.listarTodos());
 		return "cliente";
 	}
-	
 	@PostMapping("/grabar")
 	public String grabar
 	(
@@ -37,8 +40,7 @@ public class ClienteController {
 			@RequestParam("telefono") String telefono,
 			@RequestParam("correo") String correo,
 			@RequestParam("direccion") String direccion,
-			RedirectAttributes redirect
-	)
+			RedirectAttributes redirect)
 	{
 		try {
 			List<Cliente> listaCliente = clienteService.listarTodos();

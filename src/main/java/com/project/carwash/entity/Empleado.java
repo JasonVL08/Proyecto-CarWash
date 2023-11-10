@@ -29,9 +29,12 @@ public class Empleado {
 	@Column (name = "correoempleado")
 	private String correo;
 	
+	
 	@ManyToOne
 	@JoinColumn(name = "codsede")
 	private Sede sede;
+	
+	
 
 	public Integer getCodigo() {
 		return codigo;
@@ -88,5 +91,8 @@ public class Empleado {
 	public void setSede(Sede sede) {
 		this.sede = sede;
 	}
+
+	
+
 	
 }

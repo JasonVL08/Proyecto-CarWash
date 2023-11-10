@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.carwash.entity.Cliente;
+import com.project.carwash.entity.Enlace;
 import com.project.carwash.repository.ClienteRepository;
 
 @Service
@@ -32,4 +33,7 @@ public class ClienteServices {
 	public List<Cliente> listarTodos() {
 		return repo.findAll();
 	}
+
+	
+	
 }
