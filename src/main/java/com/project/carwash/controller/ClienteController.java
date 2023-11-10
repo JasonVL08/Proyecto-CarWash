@@ -31,7 +31,7 @@ public class ClienteController {
 		model.addAttribute("clientes", clienteService.listarTodos());
 		return "cliente";
 	}
-	/*@PostMapping("/grabar")
+	@PostMapping("/grabar")
 	public String grabar
 	(
 			@RequestParam("codigo") int codigo,
@@ -66,7 +66,7 @@ public class ClienteController {
 			}
 			
 			else{
-				Cliente cliente = new Cliente(codigo, apellidos, nombre, telefono, correo, direccion,1);
+				Cliente cliente = new Cliente(codigo, apellidos, nombre, telefono, correo, direccion);
 				String complemento;
 				
 				if (codigo == 0) {
@@ -86,7 +86,7 @@ public class ClienteController {
 		
 		return "redirect:/cliente/lista";
 	}
-	*/
+	
 	@GetMapping("/buscar")
 	@ResponseBody
 	public Cliente buscar(@RequestParam("id") int codigo) {

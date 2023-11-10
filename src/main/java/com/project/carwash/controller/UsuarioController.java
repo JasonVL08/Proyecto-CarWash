@@ -66,10 +66,10 @@ public class UsuarioController {
 	public String login() {
 		return "login";
 	}
-	@RequestMapping("/home")
+	/*@RequestMapping("/home")
 	public String home(){		
 		return "home";
-	}	
+	}*/	
 	@RequestMapping("/intranet")
 	public String intranet(Authentication auth,Model model) {
 		String nomRol=auth.getAuthorities().stream()
@@ -78,7 +78,7 @@ public class UsuarioController {
 		
 		List<Enlace> lista=servicioUsu.enlacesDelUsuario(nomRol);
 		model.addAttribute("ENLACES", lista);
-		return "categoria";
+		return "intranet";
 	}
 	
 	

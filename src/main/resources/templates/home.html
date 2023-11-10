@@ -126,46 +126,11 @@ table {
 <body>
 	 <!-- ============= Home Section =============== -->
 
-   <div class="side-bar active">
-        <header>
-            <img src="/resources/img/logo.jpg" alt="">
-            <h1>===CarWash===</h1>
-        </header>
-        <div class="menu">
-            <div class="item"><a th:href="@{/client/form}"><i class="fas fa-desktop"></i>Client</a></div>
-            <div class="item">
-                <a class="sub-btn"><i class="fas fa-table"></i>Mantenimiento<i class="fas fa-angle-right dropdown"></i></a>
-                <div class="sub-menu">
-                    <a th:href="@{/empleado/lista}" class="sub-item">Empleado</a>
-                    <a th:href="@{/cliente/lista}" class="sub-item">Cliente</a>
-                    <a th:href="@{/vehiculo/lista}" class="sub-item">Vehiculo</a>
-                    <a th:href="@{/servicio/lista}" class="sub-item">Servicio</a>
-                    <a th:href="@{/categoria/lista}" class="sub-item">Categoria</a>
-                </div>
-            </div>
-            <div class="item"><a href="#"><i class="fas fa-th"></i>Ventas</a></div>
-            <div class="item">
-                <a class="sub-btn"><i class="fas fa-cogs"></i>Consultas<i class="fas fa-angle-right dropdown"></i></a>
-                <div class="sub-menu">
-                    <a th:href="@{/boleta/form}" class="sub-item">Boleta por fecha</a>
-                    <a th:href="@{/ingresoSede/form}" class="sub-item">Ingreso mensual</a>
-                    <a th:href="@{/servicioEmp/form}" class="sub-item">Servicios por empleado</a>
-                </div>
-            </div>
-            <div class="item"><a th:href="@{/informe/form}"><i class="fas fa-th"></i>Informes</a></div>
-            <div class="item"><a href="#"><i class="fas fa-info-circle"></i>About</a></div>
-        </div>
-    </div>
+   <div th:replace="~{plantilla/UITemplate :: cabecera}"></div>
     
     <!-- ============= Fin Home Section =============== -->
     
-	<div class="container">
-		
-			<h3 class="text-center mt-4">REGISTRO DE VEHICULO/CLIENTE</h3>
-			
-			
-
-	</div>
+	
 	<!-- index js-->
 <script type="text/javascript">
     $(document).ready(function(){
@@ -191,55 +156,7 @@ table {
 	<script th:src="@{/resources/alertifyjs/alertify.js}"></script>
 	<script th:src="@{/resources/alertifyjs/alertify.min.js}"></script>
 	
-	<script th:inline="javascript" th:if="${MENSAJE!= null}">
-		//leer atributo MENSAJE
-			let msj=/*[[${MENSAJE}]]*/
-		toastr.success(msj, toastr.options = {
-			"timeOut": "2000",
-			"positionClass " : " toast-top-right ",
-		});
-	</script>
-	<script>
-		//asignar EVENTO CLICK a todos los BOTONOS con clase BTN-EDITAR
-			$(document). on("click",".btn-editar", function(){
-				//variable 
-				var cod;
-				//almacenar el codigo del medicamento segùn el boton 
-				//editar que se selecciona
-				//this, el boton que pulsaste
-				//parents, fila(tr)
-				//find, columna
-				cod = $(this).parents("tr").find("td")[0].innerHTML;
-				//funciòn get de JQUERY
-				//obtenemos la funciòon que creamos, es decir su nombre en la anotaciòn
-				$.get("buscar?codigo=" + cod, function(respuesta){
-					//asignar valores a las cajas usando el atributo ID
-					$("#idCodigo").val(respuesta.codigo);
-					$("#idNombre").val(respuesta.categoria);
-					$("#idPrecio").val(respuesta.precio);
-					
-				}) 
-			})
-			//asignar evento click al boton con ID = BTN-CERRAR(ELIMINAR)
-			$(document).on("click","#btn-cerrar", function(){
-				//resetear el formulario
-				$("#idRegistra").trigger("reset");
-				//resetear validaciòn
-				$("#idRegistra").data("bootstrapValidator").resetForm(true);
-			})
-		$('#tableMedicamentos').DataTable();
-		$(function() {
-			$('#usr1').datepicker({
-				'format': 'yyyy-mm-dd',
-				'autoclose': true
-			});
 	
-		});
-		$('#usr1').on('changeDate show', function(e) {
-		    $('#idRegistra').bootstrapValidator('revalidateField', $('#usr1'));
-		});
-
-	</script>
 	
 	<script type="text/javascript">    
 	    $(document).ready(function(){     

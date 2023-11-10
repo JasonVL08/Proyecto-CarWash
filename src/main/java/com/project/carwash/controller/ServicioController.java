@@ -21,7 +21,7 @@ public class ServicioController {
 	@RequestMapping("/lista")
 	public String listar(Model model) {
 		model.addAttribute("servicio", ser.listarTodo());
-		return "Servicio";
+		return "servicio";
 	}
 	@RequestMapping("/grabar")
 	public String grabar(
