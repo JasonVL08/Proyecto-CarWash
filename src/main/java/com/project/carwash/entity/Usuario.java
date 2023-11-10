@@ -2,7 +2,6 @@ package com.project.carwash.entity;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -22,9 +21,7 @@ public class Usuario {
 	@JoinColumn(name="idrol")
 	private Rol rol;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "usuario")
-	private List<Empleado> listaUsuarios;
+
 
 	public int getCodigo() {
 		return codigo;
@@ -58,11 +55,5 @@ public class Usuario {
 		this.rol = rol;
 	}
 
-	public List<Empleado> getListaUsuarios() {
-		return listaUsuarios;
-	}
 
-	public void setListaUsuarios(List<Empleado> listaUsuarios) {
-		this.listaUsuarios = listaUsuarios;
-	}
 }

@@ -34,9 +34,7 @@ public class Empleado {
 	@JoinColumn(name = "codsede")
 	private Sede sede;
 	
-	@ManyToOne
-	@JoinColumn(name = "cod_usu")
-	private Usuario usuario;
+	
 
 	public Integer getCodigo() {
 		return codigo;
@@ -94,13 +92,7 @@ public class Empleado {
 		this.sede = sede;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+	
 
 	
 }

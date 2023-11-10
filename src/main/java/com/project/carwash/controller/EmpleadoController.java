@@ -25,7 +25,7 @@ public class EmpleadoController {
 	
 	@Autowired
 	private SedeServices servicioSede;
-	private UsuarioServices usuarioServices;
+	
 	
 	@RequestMapping("/lista")
 	public String index (Model model) { //model interface{
@@ -42,7 +42,7 @@ public class EmpleadoController {
 			              @RequestParam("telefono") int tele,
 			              @RequestParam("correo") String correo,
 			              @RequestParam("sede") int codSede,
-			              int codUsu,
+			              Integer codUsu,
 			              RedirectAttributes redirect) {
 		try {
 			List<Empleado> listaEmpleado = servicioEmp.listarEmpleado();
@@ -80,9 +80,7 @@ public class EmpleadoController {
 				
 				//
 				emp.setSede(sd);
-				Usuario u = new Usuario();
-				u.setCodigo(2);
-				emp.setUsuario(u);
+				
 				if(cod == 0) {
 					servicioEmp.registrar(emp);
 					//flash
@@ -104,6 +102,14 @@ public class EmpleadoController {
 	@ResponseBody
 	public Empleado buscar (@RequestParam("codigo") Integer cod) {
 		return servicioEmp.buscarPorId(cod);
+	}
+	
+	@RequestMapping("/eliminar")
+	public String eliminar(@RequestParam("codigo") Integer cod,
+			RedirectAttributes redirect) {
+		servicioEmp.eliminarPorId(cod);
+		redirect.addFlashAttribute("MENSAJE" , "Servicio eliminado");
+		return "redirect:/empleado/lista";
 	}
 	
 }

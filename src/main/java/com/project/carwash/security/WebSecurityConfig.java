@@ -25,15 +25,20 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/session/**", "resources/**","login/**","/categoria/**").permitAll()
-				.requestMatchers("/categoria/**", "/paciente/**").authenticated())
-			.formLogin((form) -> form
-				.loginPage("/session/login")
-				.permitAll().defaultSuccessUrl("/session/intranet")
-			).logout((logout) -> logout.permitAll());
+		http
+		.authorizeHttpRequests((requests) -> requests
+			.requestMatchers("/session/**","resources/**").permitAll() 
+			.requestMatchers("/empleado/**","/servicio/**","/cliente/**","/vehiculo/**","/boleta/**","/categoria/**").authenticated()
+					
+		)
+		.formLogin((form) -> form
+			.loginPage("/session/login")
+			.defaultSuccessUrl("/session/intranet")
+			.permitAll()
+		)
+		.logout((logout) -> logout.permitAll());
 
-		return http.build();
+	return http.build();
 	}
 	
 	
