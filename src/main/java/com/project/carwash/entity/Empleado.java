@@ -24,9 +24,9 @@ public class Empleado {
 	private String apellido;
 	@Column (name = "cargoempleado")
 	private String cargo;
-	@Column (name = "teleempleado")
+	@Column (name = "teleempleado",unique = true)
 	private Integer telefono;
-	@Column (name = "correoempleado")
+	@Column (name = "correoempleado",unique = true)
 	private String correo;
 	
 	

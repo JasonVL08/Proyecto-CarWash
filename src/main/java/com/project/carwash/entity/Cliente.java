@@ -11,9 +11,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "tbcliente")
+@Table(name = "tbcliente",uniqueConstraints= {@UniqueConstraint(columnNames= {"telecliente"})} )
 public class Cliente {
 	@Id
 	@Column(name = "idcliente")
@@ -26,10 +27,10 @@ public class Cliente {
 	@Column(name = "apecliente")
 	private String apellido;
 	
-	@Column(name = "telecliente")
+	@Column(name = "telecliente",unique = true)
 	private String telefono;
 	
-	@Column(name = "correocliente") 
+	@Column(name = "correocliente",unique = true) 
 	private String correo;
 	
 	@Column(name = "direccioncliente") 

@@ -1,233 +1,148 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Cliente</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-<link rel="stylesheet" th:href="@{/resources/datepicker/bootstrap-datepicker.css}">
-<link rel="stylesheet" th:href="@{/resources/alertify	js/css/alertify.css}">
-<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}"> 
-<link rel="stylesheet" th:href="@{/resources/css/mantenimiento.css}"> 
+    <meta charset="ISO-8859-1">
+    <title>Proyecto CarWash</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" th:href="@{/resources/datepicker/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/resources/alertify	js/css/alertify.css}">
+    <link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/mantenimiento.css}">
+    <style>
+        body {
+            background: #c2e59c;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #64b3f4, #c2e59c);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-<style media="screen">
-     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+     
+}
+   /* header */
+        header {
+            background: #c2e59c;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #64b3f4, #c2e59c);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-     *{
- margin: 0;
- padding: 0;
- box-sizing: border-box;
- font-family: "Poppins", sans-serif;
-}
+        }
 
-body{
- min-height: 100vh;
- background: #b3deff9c;
- color: #000;
- background-size: cover;
- background-position: center;
-}
+        .head-mavbar-menu {
+            margin-left: 130px;
+        }
 
-.side-bar{
- background: #00FF0000 ;
- backdrop-filter: blur(15px);
- width: 250px;
- height: 100vh;
- position: fixed;
- top: 0;
- left: 0;
- overflow-y: auto;
- transition: 0.6s ease;
- transition-property: left;
- bottom: 0;
-}
+        .head-mavbar-menu img {
+            height: 30px;
+            width: 30px;
+        }
 
-.side-bar.active{
- left: 0;
-}
-h1{
-  text-align: center;
-  font-weight: 400;
-  font-size: 20px;
-  padding-bottom: 10px;
-  font-family: "Poppins", sans-serif;
-  letter-spacing: 2px;
-}
+        .head-mavbar-menu li {
+            color: #000 !important;
+            padding: 0px 20px;
+            font-size: 18px;
+        }
 
-.side-bar .menu .item a{
- color: #000;
- font-size: 16px;
- text-decoration: none;
- display: block;
- padding: 5px 30px;
- line-height: 60px;
-}
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
 
-.side-bar .menu .item a:hover{
- background: #8beafd6d;
- transition: 0.3s ease;
-}
+        .card {
+            width: 300px;
+            margin: 10px;
+        }
 
-.side-bar .menu .item i{
- margin-right: 15px;
-}
+        .card-body {
+            padding: 15px;
+        }
 
-.side-bar .menu .item a .dropdown{
- position: absolute;
- right: 0;
- margin: 20px;
-}
+        
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+</head>
 
-.side-bar .menu .item .sub-menu{
- background: #00FF0000;
- display: none;
-}
-
-.side-bar .menu .item .sub-menu a{
- line-height : 35px;
- padding-left: 50px;
-}
-img{
-  width: 100px;
-  margin: 15px;
-  border-radius: 50%;
-  margin-left: 70px;
-  border: 3px solid #000000;
-}
-header{
-  background: #8beafd6d;
-}
-
-.container {
-    position: absolute;
-    top: 0;
-    left: 250px; 
-    right: 0;
-    bottom: 0;
-    padding: 0 20px; 
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center; 
-}
-
-table {
-    width: 100%; 
-    max-width: 800px; 
-    margin: 0 auto; 
-}
-
- </style>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
- </head>
 <body>
-<!-- ============= Home Section =============== -->
-    <div th:replace="~{plantilla/UITemplate :: cabecera}"></div>
-    
-    <!-- ============= Fin Home Section =============== -->
-    
-	<div class="container">
-		<h3 class="text-center mt-4">LISTA DE CLIENTE</h3>
-		
-		<div class="btn-nuevo">
-		<button type="button" class="btn btn-primary mt-5" data-toggle="modal" data-target="#modalMedicamento" id="btn-nuevo">
-		 <i class="far fa-file"></i> Nuevo cliente
-		</button>
-		</div>
-		
-		<div class=" mt-2">
-			<table class="table table-striped table-bordered mt-5" id="tableMedicamentos">
-			  <thead>
-			   <tr>
-	                <th>Código</th>
-	                <th>Nombre</th>
-	                <th>Apellido</th>
-	                <th>Telefono</th>
-	                <th>Correo</th>
-	                <th>Direccion</th>
-	                <th></th>
-	                <th></th>
-	            </tr>
-			  </thead>
-			  <tbody>
-				<tr th:each="row:${clientes}">
-			      <td th:text="${row.id}"></td>
-			      <td th:text="${row.nombre}"></td>
-			      <td th:text="${row.apellido}"></td>
-			      <td th:text="${row.telefono}"></td>
-			      <td th:text="${row.correo}"></td>
-			      <td th:text="${row.direccion}"></td>
-			      <td><a class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalMedicamento"><i class="far fa-edit"></i></a></td>
-			      <td><a class="btn btn-danger btn-eliminar"><i class="far fa-trash-alt"></i></a></td>
-			    </tr>  
-			  </tbody>
-			</table>
-		</div>
-	
-		
-<!-- begin #modal-dialog : MODAL MEDICAMENTO-->
-<div class="modal fade" id="modalMedicamento" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <header>
+        <div th:replace="~{plantilla/UITemplate :: cabecera}"></div>
+    </header>
+
+    <div class="container">
+        <h3 class="text-center mt-4">LISTA DE CLIENTE</h3>
+
+        <div class="btn-nuevo">
+            <button type="button" class="btn btn-primary mt-5" data-toggle="modal" data-target="#modalMedicamento"
+                id="btn-nuevo">
+                <i class="far fa-file"></i> Nuevo cliente
+            </button>
+        </div>
+
+        <div class="card-container mt-2">
+            <div th:each="row:${clientes}" class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${row.nombre + ' ' + row.apellido}"></h5>
+                    <p class="card-text" th:text="${'Telefono: ' + row.telefono}"></p>
+                    <p class="card-text" th:text="${'Correo: ' + row.correo}"></p>
+                    <p class="card-text" th:text="${'Direccion: ' + row.direccion}"></p>
+                    <button type="button" class="btn btn-info btn-editar" data-toggle="modal"
+                        data-target="#modalMedicamento" th:data-id="${row.id}">
+                        <i class="far fa-edit"></i> Editar
+                    </button>
+                    <button type="button" class="btn btn-danger btn-eliminar" th:data-id="${row.id}">
+                        <i class="far fa-trash-alt"></i> Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+<!-- Modal MEDICAMENTO -->
+<div class="modal fade" id="modalMedicamento" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-blue-darker d-flex align-items-center">
-                <h4 class="modal-title text-white">Cliente</h4>
+        <div class="modal-content" style="background-color: #fff;">
+            <div class="modal-header bg-blue-darker text-white">
+                <h4 class="modal-title">Cliente</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form method="POST" id="idRegistra" th:action="@{grabar}">
-                    <div class="row">
-                        <div class="col-md-12 form-group">
-                            <label for="idCodigo"><b>Codigo</b></label>
-                            <input type="text" class="form-control" name="codigo" value="0" id="idCodigo" readonly>
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <label for="idNombre"><b>Nombre</b></label>
+					<input type="text" value="0" name="codigo" id="idCodigo">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="idNombre">Nombre</label>
                             <input type="text" class="form-control" id="idNombre" placeholder="Ingresar nombre" name="nombre">
                         </div>
-                        <div class="col-md-12 form-group">
-                            <label for="idApellido"><b>Apellido</b></label>
+                        <div class="form-group col-md-6">
+                            <label for="idApellido">Apellido</label>
                             <input type="text" class="form-control" id="idApellido" placeholder="Ingresar apellidos" name="apellidos">
                         </div>
-                        <div class="col-md-12 form-group">
-                            <label for="idTelefono"><b>Telefono</b></label>
-                            <input type="text" class="form-control" id="idTelefono" placeholder="Ingresar Telefono" name="telefono">
+                        <div class="form-group col-md-6">
+                            <label for="idTelefono">Teléfono</label>
+                            <input type="text" class="form-control" id="idTelefono" placeholder="Ingresar Teléfono" name="telefono">
                         </div>
-                        <div class="col-md-12 form-group">
-                            <label for="idCorreo"><b>Correo</b></label>
+                        <div class="form-group col-md-6">
+                            <label for="idCorreo">Correo</label>
                             <input type="text" class="form-control" id="idCorreo" placeholder="Ingresar Correo" name="correo">
                         </div>
-                        <div class="col-md-12 form-group">
-                            <label for="idDireccion"><b>Direccion</b></label>
+                        <div class="form-group col-md-12">
+                            <label for="idDireccion">Dirección</label>
                             <input type="text" class="form-control" id="idDireccion" placeholder="Ingresar Dirección" name="direccion">
                         </div>
                     </div>
-                    <div class="col-md-12 text-center mt-4">
+                    <div class="text-center mt-4">
                         <button type="submit" id="Guardar" class="btn btn-primary"><i class="fas fa-save"></i> Registrar</button>
-                        <button type="button" id="btn-cerrar" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-undo-alt"></i> Cancelar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-undo-alt"></i> Cancelar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<!-- FIN Modal MEDICAMENTO-->
-
-
-	
-	<!-- index js-->
-<script type="text/javascript">
-    $(document).ready(function(){
-        //jquery for toggle sub menus
-        $('.sub-btn').click(function(){
-            $(this).next('.sub-menu').slideToggle();
-            $(this).find('.dropdown').toggleClass('rotate');
-        });
-
-    });
-</script>
-	<!-- fin index js-->
+<!-- FIN Modal MEDICAMENTO -->
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
@@ -250,7 +165,9 @@ table {
 			"positionClass " : " toast-top-right ",
 		});
 		
+		
 	</script>
+	
 		<script th:inline="javascript" th:if="${ERROR != null}">
 		// leer atributo ERROR que proviene del controler.
 		let error = /*[[${ERROR}]]*/
@@ -264,63 +181,58 @@ table {
 	
 	
 	
+	
+	
 	<script>
-		$(document).on("click", ".btn-editar", function(){
-			let cod;
+		  $(document).ready(function () {
+        // Evento que se dispara cuando el botón "Nuevo cliente" se hace clic
+        $("#btn-nuevo").click(function () {
+            // Limpiar los valores de los campos
+            $("#idCodigo").val('0');
+            $("#idNombre").val('');
+            $("#idApellido").val('');
+            $("#idTelefono").val('');
+            $("#idDireccion").val('');
+            $("#idCorreo").val('');
+        });
+        });
+         
+        $(document).on("click", ".btn-editar", function () {
 			
-			cod = $(this).parents("tr").find("td")[0].innerHTML;
 			
-			$.get("buscar?id=" + cod, function(response){
-				console.log(response)
-				
-				
-				$("#idCodigo").val(response.id);
-				$("#idNombre").val(response.nombre);
-				$("#idApellido").val(response.apellido);
-				$("#idTelefono").val(response.telefono);				
-				$("#idDireccion").val(response.direccion);
-				$("#idCorreo").val(response.correo);
-			
-			});
-		});
+            let clientId = $(this).data("id");
+
+            $.get("buscar?id=" + clientId, function (response) {
+                console.log(response);
+
+                $("#idCodigo").val(response.id);
+                $("#idNombre").val(response.nombre);
+                $("#idApellido").val(response.apellido);
+                $("#idTelefono").val(response.telefono);
+                $("#idDireccion").val(response.direccion);
+                $("#idCorreo").val(response.correo);
+            });
+        });
+    </script>
+	
+	
+	<script>
+    $(document).on("click", ".btn-eliminar", function () {
+        //var $row = $(this).closest("tr");
+        //var cod = $row.find("td:first").text();
+		let clientId = $(this).data("id");
+		console.log(clientId);
 		
-	</script>
-	
-	
-	<script>
-		$('#tableMedicamentos').DataTable();
-		$(function() {
-			$('#usr1').datepicker({
-				'format': 'yyyy-mm-dd',
-				'autoclose': true
-			});
-	
-		});
-		$('#usr1').on('changeDate show', function(e) {
-		    $('#idRegistra').bootstrapValidator('revalidateField', $('#usr1'));
-		});
-
-
-	</script>
-	<script>
-		/*asignar evento a los botones con la clase btn-eliminar*/
-		$(document).on("click",".btn-eliminar",function(){
-			var cod;
-    		var $row = $(this).closest("tr");
-    		console.log($row); // Verifica la fila seleccionada
-    		var $firstCell = $row.find("td:first");
-   			 console.log($firstCell); // Verifica la primera celda
-    		cod = $firstCell.text();
-			alertify.confirm("SISTEMA","Seguro de eliminar!",
-	  function(){
-			window.location="http://localhost:8091/cliente/eliminar?codigo="+cod
-	  },
-	  function(){ 
-		alertify.error('Cancelado!')
-	  }).
-	  set('labels', {ok:'Si', cancel:'No'});
-		})
-	</script>
+        alertify.confirm("SISTEMA", "¿Seguro de eliminar?",
+            function () {
+                window.location.href = "http://localhost:8091/cliente/eliminar?codigo=" + clientId;
+            },
+            function () {
+                alertify.error('Cancelado!');
+            }
+        ).set('labels', { ok: 'Si', cancel: 'No' });
+    });
+</script> 
 	
 	
 	

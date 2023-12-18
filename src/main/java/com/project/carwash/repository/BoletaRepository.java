@@ -15,4 +15,7 @@ public interface BoletaRepository extends JpaRepository<Boleta, Integer> {
 			select b from Boleta b where b.sede.codigo = :codSede AND DATE(b.fecha) BETWEEN :inicio AND :fin order by b.fecha
 			""")
 	public List<Boleta> buscarBoletasXRangoDeFecha(LocalDate inicio, LocalDate fin, Integer codSede);
+	
+	public List<Boleta> findByFechaBetween(LocalDate min, LocalDate max);
+	
 }

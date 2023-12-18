@@ -14,8 +14,9 @@ public class ClienteServices {
 	@Autowired
 	private ClienteRepository repo;
 	
-	public void insert(Cliente cliente) {
-		repo.save(cliente);
+	public Cliente insert(Cliente cliente) {
+		return repo.save(cliente);
+		
 	}
 	
 	public void update(Cliente cliente) {
@@ -31,7 +32,13 @@ public class ClienteServices {
 	}
 	
 	public List<Cliente> listarTodos() {
-		return repo.findAll();
+		return  repo.findAll();
+	}
+	public Cliente findByTelefono(String telefono) {
+		return repo.findByTelefono(telefono);
+	}
+	public Cliente findByCorreo(String correo) {
+		return repo.findByCorreo(correo);
 	}
 
 	

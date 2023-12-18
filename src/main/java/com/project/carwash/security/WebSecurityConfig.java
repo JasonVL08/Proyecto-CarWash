@@ -28,12 +28,12 @@ public class WebSecurityConfig {
 		http
 		.authorizeHttpRequests((requests) -> requests
 			.requestMatchers("/session/**","resources/**").permitAll() 
-			.requestMatchers("/empleado/**","/servicio/**","/cliente/**","/vehiculo/**","/boleta/**","/categoria/**").authenticated()
+			.requestMatchers("/empleado/**","/servicio/**","/cliente/**","/reserva/**","/reporte/**", "/producto/**","/productoCrud/**","/tipoProducto/**").authenticated()
 					
 		)
 		.formLogin((form) -> form
-			.loginPage("/session/login")
-			.defaultSuccessUrl("/session/intranet")
+			.loginPage("/session/proyecto")
+			.defaultSuccessUrl("/session/pagina", true)
 			.permitAll()
 		)
 		.logout((logout) -> logout.permitAll());

@@ -1,0 +1,22 @@
+img{
+    width: 100%;
+}
+body{
+	font-family: 'Poppins', sans-serif;
+}
+/* header */
+header{
+    background: blueviolet
+}
+/* head-mavbar-menu */
+.head-mavbar-menu {
+	margin-left: 140px;
+}
+.head-mavbar-menu img{
+    height: 30px;
+}
+.head-mavbar-menu li {
+	color: #000 !important;
+	padding: 0px 20px;
+	font-size: 18px;
+}

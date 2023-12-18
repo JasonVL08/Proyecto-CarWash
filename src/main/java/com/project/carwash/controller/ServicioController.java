@@ -27,12 +27,16 @@ public class ServicioController {
 	public String grabar(
 			@RequestParam("codigo") Integer cod,
 			@RequestParam("nombre") String nom,
+			@RequestParam("descripcion") String des,
 			@RequestParam("precio") double pre,
+			@RequestParam("imagen") String img,
 			RedirectAttributes redirect) {
 		try {
 			Servicio servicio = new Servicio();
 			servicio.setNombre(nom);
 			servicio.setPrecio(pre);
+			servicio.setDescripcion(des);
+			servicio.setImagen(img);
 			
 			if(cod==0) {
 				ser.Registrar(servicio);

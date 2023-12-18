@@ -6,4 +6,5 @@ import com.project.carwash.entity.Servicio;
 
 public interface ServicioRepository extends JpaRepository<Servicio, Integer>{
 
+	
 }

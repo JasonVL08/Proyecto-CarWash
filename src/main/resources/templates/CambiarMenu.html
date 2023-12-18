@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Proyecto CarWash</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<link rel="stylesheet" th:href="@{/resources/datepicker/bootstrap-datepicker.css}">
+	<link rel="stylesheet" th:href="@{/resources/alertify	js/css/alertify.css}">
+	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}"> 
+	<link rel="stylesheet" th:href="@{/resources/css/mantenimiento.css}"> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+</head>
+<style media="screen">
+	/* General Styles */
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-family: "Poppins", sans-serif;
+		
+	}
+
+body{
+	background: #c2e59c;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #64b3f4, #c2e59c);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+     
+}
+	.tipo-container {
+		display: flex;
+		overflow-x: auto;
+	}
+
+	.tipo-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		flex: 0 0 auto;
+		margin-right: 30px;
+		text-align: center;
+	}
+
+	.tipo-item img {
+		width: 110px;
+		height: 110px;
+		border-radius: 50%;
+		margin-bottom: 10px;
+		border: 2px solid #090542;
+	}
+
+	.custom-card {
+		border-radius: 15px;
+       
+    }
+
+    .custom-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; 
+    }
+
+
+	  .head-mavbar-menu {
+            margin-left: 130px;   
+        }
+
+        .head-mavbar-menu img {
+            height: 30px;
+            width: 30px;
+        }
+
+        .head-mavbar-menu li {
+            color: #000 !important;
+            padding: 0px 20px;
+            font-size: 18px;
+        }
+    
+</style>
+
+<body>
+	<!-- CABECERA INICIO-->
+	<header>
+	<div th:replace="~{plantilla/UITemplate :: cabecera}"></div>
+	</header>	
+	<!-- CABECERA FIN-->
+	 <br>
+	  <br>
+	<div class="container d-flex justify-content-center">
+    <br>
+    <div class="tipo-container mb-5">
+        <form method="POST" id="idRegistra" action="cambiarMenu" class="tipo-item" th:each="row:${tipo}">
+            <a th:href="@{'/producto/cambiarMenu?codigoEnlace=' + ${row.codigo}}" class="link-container">
+                <header>
+                    <img th:src="${row.foto}" alt="Icono">
+                    <p th:text="${row.nombre}" style="color: black;"></p>
+                </header>
+            </a>
+        </form>
+    </div>
+</div>
+
+
+	
+   <div class="container d-flex justify-content-between mb-4">
+    <button class="btn btn-warning">
+        <a th:href="@{/producto/resumen}" style="color: white; text-decoration: none;">Ir al carrito</a>
+    </button>
+</div>
+
+	<div class="container justify-content-center">
+		<div class="row">
+			<div class="col-md-3 mb-4" th:each="row:${productosFiltrados}">
+				<div class="card custom-card">
+					<div class="card-body">
+						<form id="productoForm" method="post">
+							<img th:src="@{'/resources/img/' + ${row.foto}}">
+							<input class="idCodigo" type="hidden" th:value="${row.codigo}" name="codigo" hidden>
+							<input class="idNombre" type="hidden" th:value="${row.nombre}" name="nombre" hidden>
+							<input class="idPrecio" type="hidden" th:value="${row.precio}" name="precio" hidden>
+							<h3 class="card-title" th:text="${row.nombre}"></h3>
+							<p class="card-text" th:text="${row.precio}"></p>
+							<div class="quantity-container d-flex align-items-center justify-content-center">
+								<button type="button" class="btn btn-danger btn-menor" data-action="decrementar">-</button>
+							    <span name="cantidad" class="cantidad">1</span>
+							    <button type="button" class="btn btn-danger btn-mayor" data-action="incrementar">+</button>
+								<input type="button" class="btn btn-success btn-editar" value="Agregar"
+									data-toggle="modal" data-target="#modalMedicamento">
+							</div>
+							<br>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- INICIO Modal-->
+		<div class="modal fade" id="modalMedicamento" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">Producto agregado a tu carrito</h5>
+		      </div>
+		      <div class="modal-body">
+		          <div class="form-group">
+                        <label for="idNombre"><b>Nombre: </b></label>
+                        <label id="labelNombre"></label>
+                    </div>
+                    <div class="form-group">
+                        <label for="idNombre"><b>Precio: </b></label>
+                        <label id="labelPrecio"></label>
+                    </div>
+		      </div>
+		      <div class="modal-footer">
+                   <button type="button" id="btn-cerrar" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                   <button class="btn btn-warning"> <a th:href="@{/producto/resumen}">Ir al carrito</a></button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	<!-- FIN Modal -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+	<script th:src="@{/resources/datepicker/bootstrap-datepicker.js}"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://kit.fontawesome.com/08aaa156fb.js" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script src="https://kit.fontawesome.com/08aaa156fb.js" crossorigin="anonymous"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.js}"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.min.js}"></script>
+	
+	<script>
+    $(document).on('click', ".btn-editar", function () {
+        // Obtener el formulario específico relacionado con el botón clicado
+        let cod = $(this).parents("form").find("input[name='codigo']").val();
+    	let nombre = $(this).parents("form").find("input[name='nombre']").val();
+   		let precio = $(this).parents("form").find("input[name='precio']").val();
+		let cantidad = $(this).parents("form").find(".cantidad").text();
+
+        $.get("buscar?codigo=" + cod + "&nombre=" + nombre + "&precio=" + precio + "&cantidad=" + cantidad, function (response) {
+            // Actualizar los campos del formulario con la respuesta del servidor
+			$("#labelNombre").text(response.nombre);
+			$("#labelPrecio").text(response.precio * cantidad);			
+        });
+    });
+	</script>
+	<script th:inline="javascript" th:if="${MENSAJE!=null}">
+		//leer atributo MENSAJE
+		let msj = /*[[${MENSAJE}]]*/
+
+			toastr.success(msj, toastr.options = {
+				"timeOut": "2000",
+				"positionClass ": " toast-top-right ",
+			});
+	</script>
+	<script>
+    $(document).on('click', '.btn-menor, .btn-mayor', function() {
+        var cantidadElement = $(this).siblings('.cantidad');
+        var cantidad = parseInt(cantidadElement.text());
+
+        if ($(this).data('action') === 'decrementar' && cantidad > 1) {
+            cantidad -= 1;
+        } else if ($(this).data('action') === 'incrementar') {
+            cantidad += 1;
+        }
+
+        cantidadElement.text(cantidad);
+    });
+	</script>
+</body>
+
+</html>

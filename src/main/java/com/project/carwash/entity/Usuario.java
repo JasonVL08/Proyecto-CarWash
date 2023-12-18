@@ -2,6 +2,7 @@ package com.project.carwash.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -12,16 +13,20 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cod_usu")
 	private int codigo;
+	
 	@Column(name="login")
 	private String login;
+	
 	@Column(name = "password")
 	private String clave;
 	
 	@ManyToOne
 	@JoinColumn(name="idrol")
 	private Rol rol;
-
-
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<Reserva> reservas;
+	
 
 	public int getCodigo() {
 		return codigo;

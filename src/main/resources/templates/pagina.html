@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>PROYECTODAW 2.0</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<style>
+	
+        body {
+            font-family: 'Poppins', sans-serif;
+          background: #c2e59c;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #64b3f4, #c2e59c);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        }
+
+        /* header */
+        header {
+            background: #c2e59c;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #64b3f4, #c2e59c);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        }
+
+        /* head-mavbar-menu */
+        .head-mavbar-menu {
+            margin-left: 130px;   
+        }
+
+        .head-mavbar-menu img {
+            height: 30px;
+            width: 30px;
+        }
+
+        .head-mavbar-menu li {
+            color: #000 !important;
+            padding: 0px 20px;
+            font-size: 18px;
+        }
+
+/* baner-section */
+        .baner-title {
+            padding: 117px 0;
+        }
+
+        .baner-title-text {
+            font-weight: bold;
+            font-size: 85px;
+        }
+
+        .baner-img {
+   			 height: 1920px;
+    		 width: 1080px;
+}
+
+        /* exclusively-products */
+        .exclusively-products {
+            background: #000;
+        }
+
+        .e-p-title h1 {
+            font-size: 73px;
+        }
+
+        .e-p-title {
+            padding-top: 80px;
+        }
+
+        .e-p-title a {
+            padding: 15px 60px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .text-muted-ex {
+            color: #51525A !important;
+        }
+
+        /* Featurd-products */
+        .Featurd-product-title::after {
+            content: "";
+            background: rgb(7, 61, 103);
+            width: 100px;
+            height: 5px;
+            border-radius: 5px;
+            position: absolute;
+            margin: 0 -60px;
+        }
+
+        /* footer-section */
+        .footer-section {
+            background:  rgb(7, 61, 103);
+            color: #fff;
+        }
+
+        .f-h-download p {
+            font-size: 13px;
+        }
+
+        .download-app img {
+            width: 70px;
+        } 
+         
+</style>
+<body>
+	<!-- CABECERA INICIO-->
+	<header>
+	<div th:replace="~{plantilla/UITemplate :: cabecera}"></div>
+	</header>	
+	<!-- CABECERA FIN-->
+	
+	 <section class="baner-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="baner-title ">
+                    <h1 class="baner-title-text">CAR WASH<br>SERVICE </h1>
+                    <p class="lead mt-3">Somos un centro especializado en limpieza y detallado de vehículos con 10 años de experiencia en el mercado local. Nuestro equipo está conformado por jóvenes profesionales y especialistas de 1er nivel en el cuidado integral de vehículos.
+</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div >
+                    <samp><img src="/resources/img/atencioncliente.png" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;"></samp>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="image-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <samp><img src="/resources/img/oferta1.webp" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;"></samp>
+            </div>
+            <div class="col-lg-4">
+                <samp><img src="/resources/img/oferta2.webp" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;"></samp>
+            </div>
+            <div class="col-lg-4">
+                <samp><img src="/resources/img/oferta3.webp" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;"></samp>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="Featurd-products py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="Featurd-product-title text-center">
+                    <h3>SERVICIOS</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-3">
+                <div class="card border-0 shadow">
+                    <div class="card-img-top">
+                        <img src="/resources/img/servicio1.webp" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Servicios Básicos</h3>
+                        <p class="card-text">Servicios de limpieza frecuentes que se realizan en un menor tiempo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card border-0 shadow">
+                    <div class="card-img-top">
+                        <img src="/resources/img/servicio2.webp" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Limpieza Interior</h3>
+                        <p class="card-text">Usamos productos de limpieza como APC, desengrasantes, limpia tapiz, entre otros.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card border-0 shadow">
+                    <div class="card-img-top">
+                        <img src="/resources/img/servicio3.jpg" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Limpieza Exterior</h3>
+                        <p class="card-text">Para el lavado de chasis, el vehículo sube a una rampa para poder realizar la limpieza.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card border-0 shadow">
+                    <div class="card-img-top">
+                        <img src="/resources/img/servicio4.webp" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Paquetes de Limpieza</h3>
+                        <p class="card-text">Son servicios que incluyen varias zonas del vehículo dependiendo de la necesidad del cliente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="Featurd-products py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="Featurd-product-title text-center">
+                    <h3>RESERVAS</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-3">
+                <div class="card border-0 shadow">
+                    <div class="card-img-top">
+                        <img src="/resources/img/cita1.png" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Horario</h3>
+                        <p class="card-text">Lunes a viernes de 09:00 a 14:00 y de 15:30 a 19:30</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card border-0 shadow">
+                    <div class="card-img-top">
+                        <img src="/resources/img/cita2.png" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Reserva tu cita</h3>
+                        <p class="card-text">Tus clientes podrán reservar el día que les convenga para lavar su auto</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card border-0 shadow">
+                    <div class="card-img-top">
+                        <img src="/resources/img/cita3.png" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Abierto todos los dias del año </h3>
+                        <p class="card-text">En verano horario ampliado hasta las 22:00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="Featurd-products py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="Featurd-product-title text-center">
+                    <h3>PRODUCTOS</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-3">
+                <div class="card border-0 shadow">
+                    <div class="card-img-top">
+                        <img src="/resources/img/nuevo1.webp" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Productos de limpieza</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card border-0 shadow">
+                    <div class="card-img-top">
+                        <img src="/resources/img/nuevo2.webp" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Producto especial</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card border-0 shadow">
+                    <div class="card-img-top">
+                        <img src="/resources/img/nuevo3.webp" alt="" style="width: 810px; height: 480px; max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Producto exclusivo</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer-section pt-5 pb-4">
+        <div class="container-fluid">
+            <section class="footer-header">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="f-h-download">
+                            <h6 class="lead">Download our App</h6>
+                            <p class="text-muted my-5">Download App for android and ios mobile phone.</p>
+                            <div class="download-app">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <img src="https://i.ibb.co/Pzv38Ry/play-store.png" alt="">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <img src="https://i.ibb.co/z7GvTPQ/app-store.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="f-h-2 text-center">
+                            <samp><img src="#" alt=""></samp>
+                            <p class="text-muted my-5"> Our Purpose is To Sustainably Make the Pleasure and Bonofits of Sports Accossible to the Many.</p>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="f-h-menu text-center">
+                            <h6 class="lead"> Useful Links</h6>
+                            <ul class="list-group mt-3">
+                                <li class="list-group-item border-0 bg-transparent"><a href="#" class="text-decoration-none text-muted"> Coupons</a></li>
+                                <li class="list-group-item border-0 bg-transparent"><a href="#" class="text-decoration-none text-muted"> Blog Post</a></li>
+                                <li class="list-group-item border-0 bg-transparent"><a href="#" class="text-decoration-none text-muted"> Return policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="f-h-menu text-center">
+                            <h6 class="lead"> Follow Us</h6>
+                            <ul class="list-group mt-3 ">
+                                <li class="list-group-item border-0 bg-transparent"><a href="#" class="text-decoration-none text-muted"> Facebook</a></li>
+                                <li class="list-group-item border-0 bg-transparent"><a href="#" class="text-decoration-none text-muted"> Twitter</a></li>
+                                <li class="list-group-item border-0 bg-transparent"><a href="#" class="text-decoration-none text-muted"> Instagram</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <hr>
+        <div class="f-h-menu text-center">
+            <p class="lead"> &hearts; 2023 - ProyectoCarWash2.0 - Vargas Jason | Villanueva Emilio | Condor Renzo | Medina Stefany </p>
+        </div>
+        </div>
+    </footer>
+     <!--DISEÑO-->  
+    <script>
+	$(document).ready(function(){
+	
+	$("img").mouseover(function(){
+		$(this).css({
+			"transform":"scale(1.2)",
+			"box-shadow":"0 0 20px aquamarine",
+			"transition":"all 1s"
+		})
+	})
+	$("img").mouseout(function(){
+		$(this).css({
+			"transform":"scale(1)",
+			"box-shadow":"0 0 0px",
+			"transition":"all 1s"
+		})
+	})
+	
+	});
+		
+	</script>   
+	      
+        
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
+

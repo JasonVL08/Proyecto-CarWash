@@ -43,45 +43,74 @@ public class ClienteController {
 			RedirectAttributes redirect)
 	{
 		try {
-			List<Cliente> listaCliente = clienteService.listarTodos();
-			Boolean telefonoRepetido = false;
-			Boolean correoRepetido = false;
-			for(int i=0; i<listaCliente.size();i++) {
-				Cliente cli = listaCliente.get(i);
-				String tel = cli.getTelefono();
-				String cor = cli.getCorreo();
-				if(tel.equals(telefono)) {
-					telefonoRepetido=true;
+			Cliente c = new Cliente();
+			c.setNombre(nombre);
+			c.setApellido(apellidos);
+			c.setTelefono(telefono);
+			c.setCorreo(correo);
+			c.setDireccion(direccion);
+			
+			List<Cliente> cli= clienteService.listarTodos();
+			
+			if(codigo != 0) {
+				for(Cliente clien:cli ) {
+					if(clien.getId() != codigo) {
+						if(clien.getTelefono() == telefono) {
+							redirect.addFlashAttribute("MENSAJE","Telefono YA EXISTE");
+							return "redirect:/cliente/lista";
+						} 
+						if(clien.getCorreo() == correo) {
+							redirect.addFlashAttribute("MENSAJE","CORREO YA EXISTE");
+							return "redirect:/cliente/lista";
+						}
+						
+					} 
+					c.setId(codigo);
+					clienteService.update(c);
+					redirect.addFlashAttribute("MENSAJE","CLIENTE ACTUALIZADO");	
 				}
-				if(cor.equals(correo)) {
-					correoRepetido=true;
+				//Cliente cod= clienteService.findById(codigo);
+				
+			}else {
+				if(clienteService.findByTelefono(telefono) != null ) {
+					redirect.addFlashAttribute("MENSAJE","TELEFONO YA EXISTE");
+					return "redirect:/cliente/lista";
 				}
-			}
-			if(telefonoRepetido==true || correoRepetido==true) {
-				if(telefonoRepetido==true) {
-					redirect.addFlashAttribute("ERROR", "Error en el registro. Telefono ya existe");
-				}else if (correoRepetido==true) {
-					redirect.addFlashAttribute("ERROR", "Error en el registro. Correo ya existe");
+				if(clienteService.findByCorreo(correo) != null) {
+					redirect.addFlashAttribute("MENSAJE","CORREO YA EXISTE");
+					return "redirect:/cliente/lista";
 				}
+				
+					clienteService.insert(c);
+					redirect.addFlashAttribute("MENSAJE","CLIENTE REGISTRADO");
+				
 			}
 			
-			else{
-				Cliente cliente = new Cliente(codigo, apellidos, nombre, telefono, correo, direccion);
-				String complemento;
-				
-				if (codigo == 0) {
-					clienteService.insert(cliente);
-					complemento = "Registrado";	
-				} else {
-					clienteService.update(cliente);
-					complemento = "Actualizado";
-				}
-				
-				redirect.addFlashAttribute("MENSAJE", "Cliente " + complemento);
+			
+			
+			
+			/*if(cli != null && cli.getTelefono() != telefono) {
+				redirect.addFlashAttribute("MENSAJE","TELEFONO YA EXISTE");
+				return "redirect:/cliente/lista";
 			}
+			if(clienteService.findByCorreo(correo) !=null) {
+				redirect.addFlashAttribute("MENSAJE","CORREO YA EXISTE");
+				return "redirect:/cliente/lista";
+			}
+			if(codigo == 0) {
+				clienteService.insert(c);
+				redirect.addFlashAttribute("MENSAJE","CLIENTE REGISTRADO");
+			} else {
+				c.setId(codigo);
+				clienteService.update(c);
+				redirect.addFlashAttribute("MENSAJE","CLIENTE ACTUALIZADO");
+			}*/ 
+			
+			
 		}
 		catch (Exception e) {
-			System.out.println(e);
+			redirect.addFlashAttribute("ERROR MENSAJE","ERROR AL REGISTRAR O ACTUALIZAR CLIENTE");
+			System.out.println(e.getMessage());
 		}
 		
 		return "redirect:/cliente/lista";
@@ -94,9 +123,9 @@ public class ClienteController {
 	}
 	
 	@RequestMapping("/eliminar")
-	public String eliminar(@RequestParam("codigo") Integer cod,
+	public String eliminar(@RequestParam("codigo") Integer codigo,
 			RedirectAttributes redirect) {
-		clienteService.deleteById(cod);
+		clienteService.deleteById(codigo);
 		redirect.addFlashAttribute("MENSAJE" , "Cliente eliminado");
 		return "redirect:/cliente/lista";
 	}

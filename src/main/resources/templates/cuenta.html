@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+
+<style type="text/css">
+    :root {
+        --main-bg: #fff;
+    }
+
+    .main-bg {
+          font-family: 'Poppins', sans-serif;
+          background: #c2e59c;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #64b3f4, #c2e59c);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+
+    input:focus,
+    button:focus {
+        border: 1px solid var(--main-bg) !important;
+        box-shadow: none !important;
+    }
+
+    .form-check-input:checked {
+        background-color: var(--main-bg) !important;
+        border-color: var(--main-bg) !important;
+    }
+
+    .card,
+    .btn,
+    input {
+        border-radius: 0 !important;
+    }
+
+    .main-content {
+        width: 110%;
+        border-radius: 20px;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, .4);
+        margin: 3em auto;
+    
+    }
+
+    .company__info {
+        background-color: #090542;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #fff;
+    }
+
+    .fa-android {
+        font-size: 3em;
+    }
+
+    @media screen and (max-width: 640px) {
+        .main-content {
+            width: 90%;
+        }
+
+        .company__info {
+            display: none;
+        }
+
+        .login_form {
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+    }
+
+    .row > h2 {
+        color: #090542;
+    }
+
+    .login_form {
+        background-color: #fff;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border-top: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+    }
+
+    form {
+        padding: 0 2em;
+    }
+
+    .form__input {
+        width: 100%;
+        border: 0px solid transparent;
+        border-radius: 0;
+        border-bottom: 1px solid #aaa;
+        padding: 1em .5em .5em;
+        padding-left: 2em;
+        outline: none;
+        margin: 1.5em auto;
+        transition: all .5s ease;
+    }
+
+    .form__input:focus {
+        border-bottom-color: #090542;
+        box-shadow: 0 0 5px rgba(0, 80, 80, .4);
+        border-radius: 4px;
+    }
+
+    .btn {
+        transition: all .5s ease;
+        width: 70%;
+        border-radius: 30px;
+        color: #090542;
+        font-weight: 600;
+        background-color: #fff;
+        border: 1px solid #090542;
+        margin-top: 1.5em;
+        margin-bottom: 1em;
+    }
+
+    .btn:hover,
+    .btn:focus {
+        background-color: #090542;
+        color: #fff;
+    }
+</style>
+
+</head>
+<body class="main-bg">
+    <!-- Login Form -->
+    <div class="container-fluid">
+        <div class="row justify-content-center" style="margin-top: 100px!important">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+				<div class="alert alert-danger" th:if="${param.error}">No se registro correctamente</div>
+                <div class="alert alert-success" th:if="${param.logout}">Bienvenido a CarWash</div>
+                <div class="row main-content bg-success text-center">
+                    <div class="col-md-4 text-center company__info">
+                      <h4 class="company_title">Crea tu cuenta en Car Wash</h4>
+                    </div>
+                    <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <form method="post" th:action="@{/session/login}" control="" class="form-group">
+                                    <div class="row">
+                                        <input type="text" name="nombre" id="username" class="form__input" placeholder="Nombre">
+                                    </div>
+                                    <div class="row">
+                                        <input type="text" name="apellido" id="username" class="form__input" placeholder="Apellido">
+                                    </div>
+                                    <div class="row">
+                                        <input type="text" name="username" id="username" class="form__input" placeholder="Username">
+                                    </div>
+                                    <div class="row">
+                                        <input type="password" name="password" id="password" class="form__input" placeholder="Password">
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                    					<button type="submit" class="btn">Iniciar sesión</button>
+                  					</div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="container-fluid text-center footer">
+            <p class="lead"> &hearts; 2023 - ProyectoCarWash2.0 - Vargas Jason | Emilio Villanueva | Condor Renzo | Medina Stefany </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
